@@ -12,3 +12,5 @@ Projeto com os conceitos de serverless
 
 Serverless
 Typescript
+AWS
+DynamoDB

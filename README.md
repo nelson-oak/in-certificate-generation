@@ -7,7 +7,7 @@ Projeto com os conceitos de serverless
 
 | Entidades | Atributos |
 | - | - |
-| users_certificates | id, name, note |
+| users_certificates | id, name, grade |
 
 ## Recursos
 

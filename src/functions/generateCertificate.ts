@@ -3,6 +3,7 @@ import handlebars from 'handlebars'
 import dayjs from 'dayjs'
 import path from 'path';
 import fs from 'fs';
+import { S3 } from 'aws-sdk'
 
 import { document } from '../utils/dynamodbClient';
 
@@ -78,10 +79,21 @@ export const handle = async (event) => {
 
   await browser.close();
 
+  const s3 = new S3();
+
+  await s3.putObject({
+    Bucket: 'certificate-generator-nelson-oak',
+    Key: `${id}.pdf`,
+    ACL: 'public-read',
+    Body: pdf,
+    ContentType: 'application/pdf'
+  }).promise();
+
   return {
     statusCode: 201,
     body: JSON.stringify({
       message: 'Certificate created!',
+      url: `https://certificate-generator-nelson-oak.s3.us-east-2.amazonaws.com/${id}.pdf`
     }),
     headers: {
       "Content-Type": "application/json",
